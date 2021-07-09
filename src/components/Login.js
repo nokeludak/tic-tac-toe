@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 
-const Login = ({visible, setVisible}) => {
+const Login = ({visible, setVisible, toggleChecked}) => {
     const [player1, setPlayer1] = useState("");
     const [player2, setPlayer2] = useState("");
     
     const playerOne =(e) => {
         setPlayer1(e.target.value)
+       
     }
     const playerTwo = (e) => {
         setPlayer2(e.target.value)
     }
     const submit =() => {
-        
+       
+        if (document.getElementById("player1").value === 
+        document.getElementById("player2").value) {
+            alert("Please fill out this fields")
+            setVisible(true);
+            toggleChecked(true);
+        } else {
         localStorage.setItem("Player1", player1);
         localStorage.setItem("Player2", player2);
-           console.log(player1)
+        toggleChecked(true);
         setVisible(false); 
         
-
+        }
     }
     
     
@@ -44,6 +51,7 @@ const Login = ({visible, setVisible}) => {
                         id="player2"
                         className="form-control"
                         onChange={playerTwo}
+                        
                         />
                         
                     </div>

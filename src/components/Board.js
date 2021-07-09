@@ -4,6 +4,7 @@ import Endgame from "./Endgame";
 import Navbar from "./Navbar";
 
 
+
 function Board() {
   const [player, setPlayer] = useState("O");
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
@@ -18,7 +19,9 @@ function Board() {
   const [player2Count, setPlayer2Count] = useState(0);
   const [tieCount, setTieCount] = useState(0);
   const [historyId, setHistoryId] = useState([]);
- 
+  const [toggle, setToggle] = useState(false);
+  
+  const toggleChecked = () => setToggle(toggle => !toggle);
 
   useEffect(() => {
     checkWin();
@@ -26,25 +29,34 @@ function Board() {
 
     if (player === "X" && isti === false) {
       setPlayer("O");
+      
       setMessage(`${player2}`);
     } else if (player === "O" && isti === false) {
+      
       setPlayer("X");
       setMessage(`${player1}`);
     }
   }, [board]);
 
   const onClick = (square) => {
+    
     setBoard(
       board.map((value, idx) => {
         if (idx === square && value === "") {
+          
           setIsti(false);
           return player;
         }
         if (idx === square && value !== "") {
           setIsti(true);
+          alert("Choose unoccupied field!!")
+          
         }
+       
         return value;
+        
       })
+      
     );
   };
 
@@ -59,10 +71,13 @@ function Board() {
         }
       });
       if (foundWinningGame) {
+        setToggle(true);
         setResult({
           winner: player1 === player1 ? player2 : player1,
           state: "won",
+          
         });
+        
         setPlayer("X");
         if (player === "O") {
           setPlayer2Count(player2Count + 1);
@@ -94,6 +109,7 @@ function Board() {
     if (result.state !== "none" && player === "X") {
       setWinMsg(`Winner: ${player2} `);
       setShowEndGame(true);
+      toggleChecked()
     } else if (result.state !== "none" && player === "O") {
       setWinMsg(`Winner: ${player1}`);
       setShowEndGame(true);
@@ -121,7 +137,7 @@ function Board() {
         setShowEndGame(false);
       }
     });
-    if (filled) {
+    if (filled && !Game) {
       setResult({ winner: "draw", state: "Tie" });
       setShowEndGame(true);
       setTieCount(tieCount + 1);
@@ -133,6 +149,8 @@ function Board() {
     setPlayer("O");
     setShowEndGame(false);
     setWinMsg("");
+    setToggle(false);
+    
   };
 
   const restartGameO = () => {
@@ -149,15 +167,17 @@ function Board() {
   ))
 
   return (
-    <div>
+    <div className="size"> 
       
       <Navbar
         player1Count={player1Count}
         player2Count={player2Count}
         tieCount={tieCount}
       />
+      
       <div className="center">
-        It's {message} turn
+        {!toggle &&<div>It's {message} turn</div>}
+        {toggle && <p className="pelement">{history}</p>}
         <div className="container" id="main">
           {showEndGame && (
             <Endgame
@@ -169,79 +189,83 @@ function Board() {
             />
             
           )}
-          <p>{history}</p>
-          <div
+          
+          {!toggle && <div
             className="box"
             onClick={() => {
               onClick(0);
             }}
+            
           >
             {board[0]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(1);
             }}
+           
           >
             {board[1]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(2);
             }}
+           
           >
             {board[2]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(3);
             }}
+            
           >
             {board[3]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(4);
             }}
           >
             {board[4]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(5);
             }}
           >
             {board[5]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(6);
             }}
           >
             {board[6]}
-          </div>
-          <div
+          </div>}
+         {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(7);
             }}
           >
             {board[7]}
-          </div>
-          <div
+          </div>}
+          {!toggle &&<div
             className="box"
             onClick={() => {
               onClick(8);
             }}
           >
             {board[8]}
-          </div>
+          </div>}
         </div>
       </div>
     </div>

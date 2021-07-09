@@ -13,12 +13,12 @@ function Endgame({restartGame, restartGameO, winMsg, historyId}) {
  
 
   const history = historyId.map((historyId, index) => (
-    <div key={index}>{`Date:${historyId.day}.${historyId.month} Time:${historyId.hour}:${historyId.minute} ${historyId.player1} VS ${historyId.player2} Winner:${historyId.result}`}</div>
+    <div key={index}>{`Date: ${historyId.day}.${historyId.month} Time: ${historyId.hour}:${historyId.minute} ${historyId.player1} VS ${historyId.player2} Winner:${historyId.result}`}</div>
   ))
       
    
     return ( 
-      <div className="login">
+      <div className="loginn">
             <div className="screen">
                 
         <div className="endgame-wrapper" >
@@ -30,7 +30,7 @@ function Endgame({restartGame, restartGameO, winMsg, historyId}) {
       &nbsp;&nbsp;
       <button className="btn" onClick={restartGameO}>RESTART</button>
       </form>
-      {/* {history} */}
+      
     </div>
     </div>
         

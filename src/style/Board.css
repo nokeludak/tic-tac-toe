@@ -3,6 +3,8 @@
     overflow: hidden;
     margin: 5px auto 0 auto;
     margin-left: 220px;
+    justify-content: center;
+    align-items: center;
 }
 .container .box {
     float: left;
@@ -18,13 +20,25 @@
     
     
 }
+.center p {
+font-size: 9px;
+color: black;
+background-color: chartreuse;
+outline: auto;
+width: 200px;
+margin: auto;
+
+
+}
 .container .box:hover{
     background: rgba(10, 10, 10, 10);
     color: #fff;
 }
 .center {
     text-align: center;
+    justify-content: center;
     margin-top: 15px;
+    width: 100%;
 }
 
 .board-row:after {
@@ -68,7 +82,8 @@
   .box {
     background-color: rgb(12, 123, 163);
     color: white;
-    
+    justify-content: center;
+    align-items: center;
   }
   
   
