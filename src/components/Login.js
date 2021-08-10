@@ -5,11 +5,13 @@ const Login = ({visible, setVisible, toggleChecked}) => {
     const [player2, setPlayer2] = useState("");
     
     const playerOne =(e) => {
+        
         setPlayer1(e.target.value)
-       
+        
     }
     const playerTwo = (e) => {
         setPlayer2(e.target.value)
+       
     }
     const submit =() => {
        

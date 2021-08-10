@@ -18,7 +18,7 @@ function Board() {
   const [player1Count, setPlayer1Count] = useState(0);
   const [player2Count, setPlayer2Count] = useState(0);
   const [tieCount, setTieCount] = useState(0);
-  const [historyId, setHistoryId] = useState([]);
+  const [gameHistory, setGameHistory] = useState([]);
   const [toggle, setToggle] = useState(false);
   
   const toggleChecked = () => setToggle(toggle => !toggle);
@@ -81,7 +81,7 @@ function Board() {
         setPlayer("X");
         if (player === "O") {
           setPlayer2Count(player2Count + 1);
-          setHistoryId([...historyId, {day: new Date().getDate(),
+          setGameHistory([...gameHistory, {day: new Date().getDate(),
             month: new Date().getMonth() + 1,
             hour: new Date().getHours(),
             minute: new Date().getMinutes(),
@@ -90,7 +90,7 @@ function Board() {
             result: player2}])
         } else if (player === "X") {
           setPlayer1Count(player1Count + 1);
-          setHistoryId([...historyId, {day: new Date().getDate(),
+          setGameHistory([...gameHistory, {day: new Date().getDate(),
             month: new Date().getMonth() + 1,
             hour: new Date().getHours(),
             minute: new Date().getMinutes(),
@@ -102,14 +102,14 @@ function Board() {
       }
     });
   };
-  console.log(historyId);
-  localStorage.setItem("historyId", JSON.stringify(historyId));
+  console.log(gameHistory);
+  localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
 
   useEffect(() => {
     if (result.state !== "none" && player === "X") {
       setWinMsg(`Winner: ${player2} `);
       setShowEndGame(true);
-      toggleChecked()
+      toggleChecked();
     } else if (result.state !== "none" && player === "O") {
       setWinMsg(`Winner: ${player1}`);
       setShowEndGame(true);
@@ -117,7 +117,7 @@ function Board() {
     if (result.state === "Tie") {
       setWinMsg(`DRAW`);
       setShowEndGame(true);
-      setHistoryId([...historyId, {day: new Date().getDate(),
+      setGameHistory([...gameHistory, {day: new Date().getDate(),
         month: new Date().getMonth() + 1,
         hour: new Date().getHours(),
         minute: new Date().getMinutes(),
@@ -137,8 +137,8 @@ function Board() {
         setShowEndGame(false);
       }
     });
-    if (filled && !Game) {
-      setResult({ winner: "draw", state: "Tie" });
+     if (filled && !Game) {
+       setResult({ winner: "draw", state: "Tie" });
       setShowEndGame(true);
       setTieCount(tieCount + 1);
     }
@@ -159,11 +159,11 @@ function Board() {
   };
 
   useEffect(() => {
-    history.push(<p key={Math.random()}>{historyId}</p>);
+    history.push(<p key={Math.random()}>{gameHistory}</p>);
   }, []);
 
-  const history = historyId.map((historyId, index) => (
-    <div key={index}>{`Date:${historyId.day}.${historyId.month} Time:${historyId.hour}:${historyId.minute} ${historyId.player1} VS ${historyId.player2} Winner:${historyId.result}`}</div>
+  const history = gameHistory.map((gameHistory, index) => (
+    <div key={index}>{`Date:${gameHistory.day}.${gameHistory.month} Time:${gameHistory.hour}:${gameHistory.minute} ${gameHistory.player1} VS ${gameHistory.player2} Winner:${gameHistory.result}`}</div>
   ))
 
   return (
@@ -184,7 +184,7 @@ function Board() {
               winMsg={winMsg}
               restartGame={restartGame}
               restartGameO={restartGameO}
-              historyId={historyId}
+              gameHistory={gameHistory}
               
             />
             

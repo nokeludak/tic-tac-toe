@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../style/Endgame.css";
 
 
 
-function Endgame({restartGame, restartGameO, winMsg, historyId}) {
+function Endgame({restartGame, restartGameO, winMsg, gameHistory}) {
 
   let month = new Date().getMonth() + 1;
   let day = new Date().getDate();
@@ -12,8 +12,8 @@ function Endgame({restartGame, restartGameO, winMsg, historyId}) {
   
  
 
-  const history = historyId.map((historyId, index) => (
-    <div key={index}>{`Date: ${historyId.day}.${historyId.month} Time: ${historyId.hour}:${historyId.minute} ${historyId.player1} VS ${historyId.player2} Winner:${historyId.result}`}</div>
+  const history = gameHistory.map((gameHistory, index) => (
+    <div key={index}>{`Date: ${gameHistory.day}.${gameHistory.month} Time: ${gameHistory.hour}:${gameHistory.minute} ${gameHistory.player1} VS ${gameHistory.player2} Winner:${gameHistory.result}`}</div>
   ))
       
    
